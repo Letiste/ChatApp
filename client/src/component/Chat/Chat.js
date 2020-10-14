@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 import InfoBar from "../InfoBar/InfoBar"
+import Input from "../Input/Input"
 
 import './Chat.css'
 
@@ -29,7 +30,7 @@ export default function Chat({ location }) {
 
       socket.off();
     };
-  }, [ENDPOINT, location.search]);
+  }, [location.search]);
 
   useEffect(() => {
     socket.on("message", (message) => {
@@ -39,6 +40,7 @@ export default function Chat({ location }) {
 
   const sendMessage = (e) => {
     e.preventDefault()
+    console.log(message)
 
     if (message) {
       socket.emit('sendMessage', message, () => setMessage(''))
@@ -48,12 +50,9 @@ export default function Chat({ location }) {
   return (
     <div className="outerContainer">
       <div className="container">
-      <InfoBar />
-        <input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
-        />
+      <InfoBar room={room} />
+      
+      <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
     </div>
   );
