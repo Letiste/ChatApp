@@ -7,7 +7,7 @@ import Messages from "../Messages/Messages";
 
 import "./Chat.css";
 
-const ENDPOINT = "localhost:5000";
+const ENDPOINT = "https://reactrealtimechat-app.herokuapp.com/";
 let socket;
 
 export default function Chat({ location }) {
